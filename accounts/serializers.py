@@ -34,3 +34,8 @@ class UserSerializer(serializers.ModelSerializer):
         # Retourne email si pas de nom renseigné
         name = f"{obj.first_name} {obj.last_name}".strip()
         return name if name else obj.email
+    
+class UserLightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'first_name', 'last_name', 'email', 'role']
