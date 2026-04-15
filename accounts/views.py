@@ -1,8 +1,9 @@
 from rest_framework import generics, permissions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import CustomUser
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import RegisterSerializer, UserSerializer,UserLightSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -17,3 +18,10 @@ class ProfileView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+class TechniciensListView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserLightSerializer
+
+    def get_queryset(self):
+        return CustomUser.objects.filter(role='TECHNICIEN')

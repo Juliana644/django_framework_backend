@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from tickets.views import TicketViewSet
-from accounts.views import RegisterView, ProfileView
+from accounts.views import RegisterView, ProfileView,TechniciensListView
 
 router = DefaultRouter()
 router.register(r'tickets', TicketViewSet, basename='ticket')
@@ -17,4 +17,5 @@ urlpatterns = [
     path('api/auth/profil/',   ProfileView.as_view(),        name='profil'),
     # Tickets
     path('api/', include(router.urls)),
+    path('api/auth/techniciens/', TechniciensListView.as_view(), name='techniciens'),
 ]
