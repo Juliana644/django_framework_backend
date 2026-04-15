@@ -41,7 +41,7 @@ class TicketViewSet(viewsets.ModelViewSet):
             return qs
         if user.role == 'TECHNICIEN':
             return Ticket.objects.filter(
-                Q(assigne_a=user) | Q(auteur=user)
+                assigne_a=user
             ).select_related('auteur', 'assigne_a').prefetch_related(
                 'commentaires', 'historique'
             )
